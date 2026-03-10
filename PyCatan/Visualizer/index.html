@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catán - Visualizador</title>
+
+    <!-- Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/general.css">
+    <link rel="stylesheet" href="CSS/game.css">
+    <!-- Animate.css para animaciones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- Confetti para efectos de victoria -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <!-- GSAP para animaciones avanzadas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    
+    <script src="https://kit.fontawesome.com/7c89af0f82.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- APP -->
+    <div id="app" class="container-fluid">
+        <header class="py-3 mb-3">
+            <h1 class="text-center animate__animated animate__fadeIn">Catán Visualizador</h1>
+        </header>
+        
+        <!-- Partida -->
+        <div class="row">
+            <div class="col-7">
+                <div class="row">
+                    <!-- Col Partida -->
+                    <div class="col-12" style="padding-right: 0" id="gamefield_external">
+                        <div class="gamefield" id="gamefield">
+                            <div class="nodes">
+                                <!-- Nodos actuales con puertos -->
+                                <!-- LOS DIVS DE NODOS SERÁN ELIMINADOS DE AQUÍ Y GENERADOS POR JS -->
+                            </div>
+
+                            <div class="roads">
+                                <div class="road first_row third_col left_road" id="road_0_1"></div>
+                                <div class="road first_row fourth_col right_road" id="road_1_2"></div>
+                                <div class="road first_row fifth_col left_road" id="road_2_3"></div>
+                                <div class="road first_row sixth_col right_road" id="road_3_4"></div>
+                                <div class="road first_row seventh_col left_road" id="road_4_5"></div>
+                                <div class="road first_row eighth_col right_road" id="road_5_6"></div>
+
+                                <div class="road vertical_road vertical_first_row vertical_third_col" id="road_0_8"></div>
+                                <div class="road vertical_road vertical_first_row vertical_fifth_col" id="road_2_10"></div>
+                                <div class="road vertical_road vertical_first_row vertical_seventh_col" id="road_4_12"></div>
+                                <div class="road vertical_road vertical_first_row vertical_ninth_col" id="road_6_14"></div>
+
+                                <div class="road second_row second_col left_road" id="road_7_8"></div>
+                                <div class="road second_row third_col right_road" id="road_8_9"></div>
+                                <div class="road second_row fourth_col left_road" id="road_9_10"></div>
+                                <div class="road second_row fifth_col right_road" id="road_10_11"></div>
+                                <div class="road second_row sixth_col left_road" id="road_11_12"></div>
+                                <div class="road second_row seventh_col right_road" id="road_12_13"></div>
+                                <div class="road second_row eighth_col left_road" id="road_13_14"></div>
+                                <div class="road second_row ninth_col right_road" id="road_14_15"></div>
+
+                                <div class="road vertical_road vertical_second_row vertical_second_col" id="road_7_17"></div>
+                                <div class="road vertical_road vertical_second_row vertical_fourth_col" id="road_9_19"></div>
+                                <div class="road vertical_road vertical_second_row vertical_sixth_col" id="road_11_21"></div>
+                                <div class="road vertical_road vertical_second_row vertical_eighth_col" id="road_13_23"></div>
+                                <div class="road vertical_road vertical_second_row vertical_tenth_col" id="road_15_25"></div>
+
+                                <div class="road third_row first_col left_road" id="road_16_17"></div>
+                                <div class="road third_row second_col right_road" id="road_17_18"></div>
+                                <div class="road third_row third_col left_road" id="road_18_19"></div>
+                                <div class="road third_row fourth_col right_road" id="road_19_20"></div>
+                                <div class="road third_row fifth_col left_road" id="road_20_21"></div>
+                                <div class="road third_row sixth_col right_road" id="road_21_22"></div>
+                                <div class="road third_row seventh_col left_road" id="road_22_23"></div>
+                                <div class="road third_row eighth_col right_road" id="road_23_24"></div>
+                                <div class="road third_row ninth_col left_road" id="road_24_25"></div>
+                                <div class="road third_row tenth_col right_road" id="road_25_26"></div>
+
+                                <div class="road vertical_road vertical_third_row vertical_first_col" id="road_16_27"></div>
+                                <div class="road vertical_road vertical_third_row vertical_third_col" id="road_18_29"></div>
+                                <div class="road vertical_road vertical_third_row vertical_fifth_col" id="road_20_31"></div>
+                                <div class="road vertical_road vertical_third_row vertical_seventh_col" id="road_22_33"></div>
+                                <div class="road vertical_road vertical_third_row vertical_ninth_col" id="road_24_35"></div>
+                                <div class="road vertical_road vertical_third_row vertical_eleventh_col" id="road_26_37"></div>
+
+                                <div class="road fourth_row first_col right_road" id="road_27_28"></div>
+                                <div class="road fourth_row second_col left_road" id="road_28_29"></div>
+                                <div class="road fourth_row third_col right_road" id="road_29_30"></div>
+                                <div class="road fourth_row fourth_col left_road" id="road_30_31"></div>
+                                <div class="road fourth_row fifth_col right_road" id="road_31_32"></div>
+                                <div class="road fourth_row sixth_col left_road" id="road_32_33"></div>
+                                <div class="road fourth_row seventh_col right_road" id="road_33_34"></div>
+                                <div class="road fourth_row eighth_col left_road" id="road_34_35"></div>
+                                <div class="road fourth_row ninth_col right_road" id="road_35_36"></div>
+                                <div class="road fourth_row tenth_col left_road" id="road_36_37"></div>
+
+                                <div class="road vertical_road vertical_fourth_row vertical_second_col" id="road_28_38"></div>
+                                <div class="road vertical_road vertical_fourth_row vertical_fourth_col" id="road_30_40"></div>
+                                <div class="road vertical_road vertical_fourth_row vertical_sixth_col" id="road_32_42"></div>
+                                <div class="road vertical_road vertical_fourth_row vertical_eighth_col" id="road_34_44"></div>
+                                <div class="road vertical_road vertical_fourth_row vertical_tenth_col" id="road_36_46"></div>
+
+                                <div class="road fifth_row second_col right_road" id="road_38_39"></div>
+                                <div class="road fifth_row third_col left_road" id="road_39_40"></div>
+                                <div class="road fifth_row fourth_col right_road" id="road_40_41"></div>
+                                <div class="road fifth_row fifth_col left_road" id="road_41_42"></div>
+                                <div class="road fifth_row sixth_col right_road" id="road_42_43"></div>
+                                <div class="road fifth_row seventh_col left_road" id="road_43_44"></div>
+                                <div class="road fifth_row eighth_col right_road" id="road_44_45"></div>
+                                <div class="road fifth_row ninth_col left_road" id="road_45_46"></div>
+
+                                <div class="road vertical_road vertical_fifth_row vertical_third_col" id="road_39_47"></div>
+                                <div class="road vertical_road vertical_fifth_row vertical_fifth_col" id="road_41_49"></div>
+                                <div class="road vertical_road vertical_fifth_row vertical_seventh_col" id="road_43_51"></div>
+                                <div class="road vertical_road vertical_fifth_row vertical_ninth_col" id="road_45_53"></div>
+
+                                <div class="road sixth_row third_col right_road" id="road_47_48"></div>
+                                <div class="road sixth_row fourth_col left_road" id="road_48_49"></div>
+                                <div class="road sixth_row fifth_col right_road" id="road_49_50"></div>
+                                <div class="road sixth_row sixth_col left_road" id="road_50_51"></div>
+                                <div class="road sixth_row seventh_col right_road" id="road_51_52"></div>
+                                <div class="road sixth_row eighth_col left_road" id="road_52_53"></div>
+                            </div>
+
+                            <div class="terrain_pieces" id="terrain_pieces">
+                                <div class="terrain top_terrain"></div>
+                                <div class="terrain top_terrain"></div>
+                                <div class="terrain top_terrain"></div>
+                                <div class="terrain top_terrain"></div>
+                                <div class="terrain top_terrain"></div>
+                                <div class="terrain top_terrain"></div>
+                                <div class="terrain top_terrain"></div>
+                                <div class="terrain top_terrain"></div>
+                                <br>
+
+                                <div class="terrain"></div>
+                                <div class="terrain"></div>
+                                <div class="terrain terrain_wood" id="terrain_0">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_wool" id="terrain_1">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_cereal" id="terrain_2">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain"></div>
+                                <div class="terrain"></div>
+                                <br>
+
+                                <div class="terrain"></div>
+                                <div class="terrain"></div>
+                                <div class="terrain terrain_clay" id="terrain_3">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_mineral" id="terrain_4">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_clay" id="terrain_5">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_wool" id="terrain_6">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain"></div>
+                                <div class="terrain"></div>
+                                <br>
+
+                                <div class="terrain"></div>
+                                <div class="terrain terrain_desert" id="terrain_7">
+                                    <div class="terrain_number">
+                                        <i class="fa-solid fa-user-ninja fa-2x" data-toggle="tooltip" data-placement="top" title="Ladrón"></i>
+                                    </div>
+                                </div>
+                                <div class="terrain terrain_wood" id="terrain_8">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_cereal" id="terrain_9">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_wood" id="terrain_10">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_cereal" id="terrain_11">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain"></div>
+                                <br>
+
+                                <div class="terrain"></div>
+                                <div class="terrain"></div>
+                                <div class="terrain terrain_clay" id="terrain_12">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_wool" id="terrain_13">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_wool" id="terrain_14">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_mineral" id="terrain_15">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain"></div>
+                                <div class="terrain"></div>
+                                <br>
+
+                                <div class="terrain"></div>
+                                <div class="terrain"></div>
+                                <div class="terrain terrain_mineral" id="terrain_16">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_cereal" id="terrain_17">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain terrain_wood" id="terrain_18">
+                                    <div class="terrain_number"></div>
+                                </div>
+                                <div class="terrain"></div>
+                                <div class="terrain"></div>
+                                <br>
+
+                                <div class="terrain bottom_terrain"></div>
+                                <div class="terrain bottom_terrain"></div>
+                                <div class="terrain bottom_terrain"></div>
+                                <div class="terrain bottom_terrain"></div>
+                                <div class="terrain bottom_terrain"></div>
+                                <div class="terrain bottom_terrain"></div>
+                                <div class="terrain bottom_terrain"></div>
+                                <div class="terrain bottom_terrain"></div>
+                            </div>
+                        </div>
+                        <!-- Controles de zoom y pantalla completa -->
+                        <div class="map-controls">
+                            <button id="zoom-in" title="Acercar"><i class="fas fa-search-plus"></i></button>
+                            <button id="zoom-out" title="Alejar"><i class="fas fa-search-minus"></i></button>
+                            <button id="fullscreen" title="Pantalla completa"><i class="fas fa-expand"></i></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Control panel debajo del tablero -->
+                    <div class="col-12 mt-3">
+                        <div class="game-controls-panel d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="game-info d-flex">
+                                    <!--<div id="diceroll" class="dice-display animate__animated me-3">
+                                        <i class="fas fa-dice me-2"></i>Diceroll: <span class="dice-value">0</span>
+                                    </div>-->
+                                    <div class="rounds card-stats me-3">
+                                        <i class="fas fa-hourglass-half me-2"></i>Ronda: 
+                                        <span id="contador_rondas_display">1</span> / <span id="rondas_maximas"></span>
+                                        <input type="hidden" id="contador_rondas" value="1">
+                                    </div>
+                                    <div class="turns card-stats me-3">
+                                        <i class="fas fa-users me-2"></i>Turno: 
+                                        <span id="contador_turnos_display">1</span>
+                                        <input type="hidden" id="contador_turnos" value="1">
+                                    </div>
+                                    <div class="phases card-stats">
+                                        <i class="fas fa-tasks me-2"></i>Fase: 
+                                        <span id="contador_fases_display">1</span>
+                                        <input type="hidden" id="contador_fases" value="1">
+                                    </div>
+                                </div>
+                                
+                                <div id="controles" class="game-controls">
+                                    <div class="btn-group">
+                                        <button id="ronda_previa_btn" class="btn btn-sm" title="Ronda Anterior">
+                                            <i class="fas fa-step-backward"></i>
+                                        </button>
+                                        <button id="turno_previo_btn" class="btn btn-sm" title="Turno Anterior">
+                                            <i class="fas fa-backward"></i>
+                                        </button>
+                                        <button id="fase_previa_btn" class="btn btn-sm" title="Fase Anterior">
+                                            <i class="fas fa-caret-left"></i>
+                                        </button>
+                                        <button id="fase_siguiente_btn" class="btn btn-sm" title="Fase Siguiente">
+                                            <i class="fas fa-caret-right"></i>
+                                        </button>
+                                        <button id="turno_siguiente_btn" class="btn btn-sm" title="Turno Siguiente">
+                                            <i class="fas fa-forward"></i>
+                                        </button>
+                                        <button id="ronda_siguiente_btn" class="btn btn-sm" title="Ronda Siguiente">
+                                            <i class="fas fa-step-forward"></i>
+                                        </button>
+                                        <button id="play_btn" class="btn btn-sm btn-success ms-2" title="Play/Pausa">
+                                            <i class="fas fa-play"></i> <span id="play-text" style="display: none;">Play</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Panel lateral -->
+            <div class="col-5">
+                <div class="row">
+                    <!-- Perfiles de jugadores -->
+                    <div class="col-12">
+                        <div class="card mb-3">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Jugadores</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row" id="players-container">
+                                    <!-- Contenido de jugadores se añade dinámicamente -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Logs del juego -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Log del Juego</h5>
+                            </div>
+                            <div class="card-body" id="game-log-body">
+                                <div id="turn_log" class="mb-3">
+                                    <h6 class="card-subtitle mb-2 text-muted">Turno a Turno</h6>
+                                    <div id="turn_log_text" style="height: 200px; overflow-y: auto; border: 1px solid #eee; padding: 10px;">
+                                        <!-- Aquí irán los logs del turno del jugador -->
+                                    </div>
+                                </div>
+                                <div id="commerce_log" class="mb-3">
+                                    <h6 class="card-subtitle mb-2 text-muted" id="commerce_log_title">Comercio</h6>
+                                    <div id="commerce_log_text" style="height: 100px; overflow-y: auto; border: 1px solid #eee; padding: 10px;">
+                                        <!-- Aquí irán los logs de comercio -->
+                                    </div>
+                                </div>
+                                <div id="other_useful_info">
+                                    <h6 class="card-subtitle mb-2 text-muted" id="other_useful_info_title">Información Adicional</h6>
+                                    <div id="other_useful_info_text" style="height: 100px; overflow-y: auto; border: 1px solid #eee; padding: 10px;">
+                                        <!-- Aquí irá la información adicional -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modals y elementos flotantes -->
+        <div id="victory-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">¡VICTORIA!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <!-- Trofeo 3D -->
+                        <div class="trophy-container">
+                            <div class="trophy">
+                                <span class="trophy-emoji">🏆</span>
+                            </div>
+                        </div>
+                        
+                        <h2 id="winner-name" class="mb-4 animate__animated animate__bounceIn"></h2>
+                        
+                        <!-- Botón para compartir -->
+                        <button class="share-victory-btn">
+                            <i class="fas fa-share-alt"></i> Compartir Victoria
+                        </button>
+                        
+                        <!-- Contenedor para el confeti -->
+                        <div class="victory-animation-container">
+                            <div id="confetti-canvas"></div>
+                            
+                            <!-- Elementos flotantes de Catán (se añadirán dinámicamente) -->
+                            <div class="catan-elements-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Overlay para animación de dados -->
+        <div id="dice-overlay" class="dice-overlay">
+            <div class="text-center">
+                <div class="dice-container-wrapper d-flex justify-content-center">
+                    <!-- Primer dado -->
+                    <div class="dice-container mx-3">
+                        <div class="dice dice-1">
+                            <div class="face face-1 front"></div>
+                            <div class="face face-6 back"></div>
+                            <div class="face face-2 right"></div>
+                            <div class="face face-5 left"></div>
+                            <div class="face face-3 top"></div>
+                            <div class="face face-4 bottom"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Segundo dado -->
+                    <div class="dice-container mx-3">
+                        <div class="dice dice-2">
+                            <div class="face face-1 front"></div>
+                            <div class="face face-6 back"></div>
+                            <div class="face face-2 right"></div>
+                            <div class="face face-5 left"></div>
+                            <div class="face face-3 top"></div>
+                            <div class="face face-4 bottom"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dice-result mt-4">
+                    <span id="dice-value-1">0</span> + <span id="dice-value-2">0</span> = <span id="dice-total">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Carga de archivo -->
+        <div class="position-fixed bottom-0 end-0 p-3">
+            <div class="btn-group">
+                <button id="load_game" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                    <i class="fas fa-file-upload me-2"></i>Cargar partida
+                </button>
+            </div>
+        </div>
+        
+        <!-- Modal para carga de archivos -->
+        <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadModalLabel">Cargar Partida</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="drop-area" class="p-4 border border-2 border-dashed rounded text-center">
+                            <i class="fas fa-upload upload-icon"></i>
+                            <p>Arrastra y suelta un archivo JSON aquí</p>
+                            <p class="small text-muted">ó</p>
+                            <div class="d-flex justify-content-center">
+                                <label for="file-selector" class="btn btn-sm btn-outline-primary">Seleccionar archivo</label>
+                                <input type="file" id="file-selector" accept=".json" style="display: none">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="load-selected-file" disabled>Cargar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para funcionalidades extendidas -->
+    <script src="JS/general.js"></script>
+    <script>
+        // Script para inicializar efectos visuales
+        document.addEventListener('DOMContentLoaded', function() {
+            init_events();
+            
+            // Inicializar tooltips de Bootstrap
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+              return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        });
+    </script>
+</body>
+
+</html>
