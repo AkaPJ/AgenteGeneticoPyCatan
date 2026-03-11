@@ -68,16 +68,28 @@ _OPPONENT_AGENTS = [
 # Espacio de genes: nombre -> (default, min, max, tipo)
 # ---------------------------------------------------------------------------
 _GENE_SPACE: Dict[str, tuple] = {
-    "w_production":               (0.5,  0.0, 1.0, float),
-    "w_diversity":                (0.3,  0.0, 1.0, float),
-    "w_port_access":              (0.2,  0.0, 1.0, float),
-    "city_upgrade_threshold":     (0.6,  0.0, 1.0, float),
-    "road_expansion_weight":      (0.4,  0.0, 1.0, float),
+    # Pesos de puntuación de nodos: se usan como multiplicadores en suma
+    # ponderada, no como probabilidades → se permite hasta 2.0 para dar
+    # más margen a estrategias que priorizan fuertemente una dimensión.
+    "w_production":               (0.5,  0.0, 2.0, float),
+    "w_diversity":                (0.3,  0.0, 2.0, float),
+    "w_port_access":              (0.2,  0.0, 2.0, float),
+    # Multiplicadores de puntuación de construcción: score = base * umbral,
+    # extender a 2.0 permite estrategias muy agresivas de ciudad/carretera.
+    "city_upgrade_threshold":     (0.6,  0.0, 2.0, float),
+    "road_expansion_weight":      (0.4,  0.0, 2.0, float),
+    # Factor de mezcla [0,1]: 1.0 = colocar el ladrón en el hex más productivo
+    # del rival; 0.0 = evitar los propios hexes. Valores >1 distorsionarían la lógica.
     "robber_aggression":          (0.7,  0.0, 1.0, float),
+    # Umbral de ratio: valores >1 harían que nunca se acepten tratos
     "trade_acceptance_threshold": (0.55, 0.0, 1.0, float),
+    # Probabilidad [0,1]
     "dev_card_eagerness":         (0.5,  0.0, 1.0, float),
+    # Discreto
     "discard_priority":           (1,    0,   2,   int),
+    # Factor de mezcla [0,1]: 1.0 = priorizar expansion; 0.0 = priorizar ciudades
     "expansion_vs_consolidation": (0.5,  0.0, 1.0, float),
+    # Enteros con rango ampliado
     "min_road_before_settle":     (2,    0,   6,   int),
     "vp_urgency_threshold":       (8,    5,   10,  int),
 }

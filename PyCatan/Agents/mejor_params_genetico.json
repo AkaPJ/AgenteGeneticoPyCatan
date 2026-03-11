@@ -1,0 +1,14 @@
+{
+  "w_production": 1.143142418397119,
+  "w_diversity": 0.5543378452853711,
+  "w_port_access": 0.8396204845325926,
+  "city_upgrade_threshold": 0.2097990875696003,
+  "road_expansion_weight": 0.2850139037659962,
+  "robber_aggression": 0.45046621656859226,
+  "trade_acceptance_threshold": 0.7617082817339246,
+  "dev_card_eagerness": 0.9205454189425966,
+  "discard_priority": 1,
+  "expansion_vs_consolidation": 0.746809036019292,
+  "min_road_before_settle": 5,
+  "vp_urgency_threshold": 6
+}
