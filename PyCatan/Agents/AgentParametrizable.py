@@ -308,6 +308,10 @@ class AgentParametrizable(AgentInterface):
             for adj in self.board.nodes[finish]['adjacent']:
                 if self.board.nodes[adj]['player'] == -1:
                     score += self._score_node(adj) * 0.3
+                    # Additional bonus for nodes two steps away (expansion potential)
+                    for adj2 in self.board.nodes[adj]['adjacent']:
+                        if self.board.nodes[adj2]['player'] == -1 and adj2 != finish:
+                            score += self._score_node(adj2) * 0.1
             if score > best_score:
                 best_score = score
                 best_road = road
@@ -387,9 +391,8 @@ class AgentParametrizable(AgentInterface):
             if not adjacent:
                 road_to = 0
             elif len(scored) > 1:
-                # Road toward the second-best valid node
-                second_best = scored[1]
-                road_to = min(adjacent, key=lambda a: abs(a - second_best))
+                # Road toward the adjacent node with best score (maximizes future expansion)
+                road_to = max(adjacent, key=lambda a: self._score_node(a))
             else:
                 road_to = adjacent[0]
 
